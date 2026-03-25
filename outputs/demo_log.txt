@@ -1,0 +1,36 @@
+gguf-serve demo run — 2026-03-25T10:14:37Z
+Server: http://127.0.0.1:8000  |  Mock mode: enabled
+
+GET /health
+  -> status=ok
+
+GET /v1/models
+  -> ['data', 'object']
+
+POST /v1/completions
+  -> [MOCK] This is a simulated response to: 'The quick brown fox'
+
+POST /v1/completions
+  -> [MOCK] This is a simulated response to: 'Explain quantum computing in one sentence:'
+
+POST /v1/chat/completions
+  -> [MOCK] Assistant reply to: 'What is a GGUF model?'
+
+POST /v1/chat/completions
+  -> [MOCK] Assistant reply to: 'Tell me a short joke.'
+
+POST /v1/completions
+  -> error={'message': "'prompt' is required", 'type': 'invalid_request_error'}
+
+POST /v1/embeddings
+  -> ['data', 'model', 'object', 'usage']
+
+POST /v1/embeddings
+  -> 3 vectors returned  usage={'prompt_tokens': 14, 'total_tokens': 14}
+
+POST /v1/tokenize
+  -> ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog', '.']
+
+GET /v1/stats
+  -> ['avg_latency_ms', 'by_endpoint', 'errors_total', 'requests_total', 'uptime_seconds']
+

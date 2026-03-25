@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>gguf-serve demo report</title>
+  <style>
+    body { font-family: monospace; background: #0d1117; color: #c9d1d9; margin: 2rem; }
+    h1 { color: #58a6ff; }
+    table { border-collapse: collapse; width: 100%; }
+    th { background: #161b22; color: #58a6ff; padding: 8px 12px; text-align: left; border: 1px solid #30363d; }
+    td { padding: 8px 12px; border: 1px solid #30363d; vertical-align: top; }
+    pre { margin: 0; white-space: pre-wrap; word-break: break-word; font-size: 0.85em; }
+    code { background: #161b22; padding: 2px 6px; border-radius: 4px; }
+    .footer { margin-top: 2rem; color: #8b949e; font-size: 0.85em; }
+  </style>
+</head>
+<body>
+  <h1>gguf-serve demo report</h1>
+  <p>Generated: <strong>2026-03-25T10:14:37Z</strong> &nbsp;|&nbsp; Server: <strong>http://127.0.0.1:8000</strong> &nbsp;|&nbsp; Mock mode: <strong>yes</strong></p>
+  <table>
+    <thead>
+      <tr><th>Method</th><th>Endpoint</th><th>Note</th><th>Response</th></tr>
+    </thead>
+    <tbody>
+
+    <tr>
+      <td><code>GET</code></td>
+      <td><code>/health</code></td>
+      <td></td>
+      <td><pre>{
+  "status": "ok",
+  "mock_mode": true,
+  "model": "none",
+  "host": "127.0.0.1",
+  "port": 8000,
+  "uptime_seconds": 0.341,
+  "requests_total": 0,
+  "version": "2.0.0",
+  "latency_ms": 0.38
+}</pre></td>
+    </tr>
+
+    <tr>
+      <td><code>GET</code></td>
+      <td><code>/v1/models</code></td>
+      <td></td>
+      <td><pre>{
+  "object": "list",
+  "data": [
+    {
+      "id": "mock-gguf",
+      "object": "model",
+      "created": 1742896477,
+      "owned_by": "gguf-serve",
+      "capabilities": {
+        "completions": true,
+        "chat_completions": true,
+        "embeddings": true
+      }
+    }
+  ],
+  "latency_ms": 0.22
+}</pre></td>
+    </tr>
+
+    <tr>
+      <td><code>POST</code></td>
+      <td><code>/v1/completions</code></td>
+      <td>prompt: "The quick brown fox"</td>
+      <td><pre>{
+  "id": "cmpl-3f7a1d2c9e04",
+  "object": "text_completion",
+  "created": 1742896477,
+  "model": "mock-gguf",
+  "choices": [
+    {
+      "text": "[MOCK] This is a simulated response to: 'The quick brown fox'",
+      "index": 0,
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 4,
+    "completion_tokens": 12,
+    "total_tokens": 16
+  },
+  "latency_ms": 1.04
+}</pre></td>
+    </tr>
+
+    <tr>
+      <td><code>POST</code></td>
+      <td><code>/v1/completions</code></td>
+      <td>prompt: "Explain quantum computing in one sentence:"</td>
+      <td><pre>{
+  "id": "cmpl-8b2e5f1a7c30",
+  "object": "text_completion",
+  "created": 1742896478,
+  "model": "mock-gguf",
+  "choices": [
+    {
+      "text": "[MOCK] This is a simulated response to: 'Explain quantum computing in one sentence:'",
+      "index": 0,
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 6,
+    "completion_tokens": 13,
+    "total_tokens": 19
+  },
+  "latency_ms": 0.91
+}</pre></td>
+    </tr>
+
+    <tr>
+      <td><code>POST</code></td>
+      <td><code>/v1/chat/completions</code></td>
+      <td>user: "What is a GGUF model?"</td>
+      <td><pre>{
+  "id": "chatcmpl-4c9d0e6f2b18",
+  "object": "chat.completion",
+  "created": 1742896478,
+  "model": "mock-gguf",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "[MOCK] Assistant reply to: 'What is a GGUF model?'"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 12,
+    "completion_tokens": 9,
+    "total_tokens": 21
+  },
+  "latency_ms": 0.87
+}</pre></td>
+    </tr>
+
+    <tr>
+      <td><code>POST</code></td>
+      <td><code>/v1/chat/completions</code></td>
+      <td>multi-turn: "Tell me a short joke."</td>
+      <td><pre>{
+  "id": "chatcmpl-7a1f3b5e8d24",
+  "object": "chat.completion",
+  "created": 1742896479,
+  "model": "mock-gguf",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "[MOCK] Assistant reply to: 'Tell me a short joke.'"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 15,
+    "completion_tokens": 9,
+    "total_tokens": 24
+  },
+  "latency_ms": 0.79
+}</pre></td>
+    </tr>
+
+    <tr>
+      <td><code>POST</code></td>
+      <td><code>/v1/completions</code></td>
+      <td>missing prompt → 400</td>
+      <td><pre>{
+  "error": {
+    "message": "'prompt' is required",
+    "type": "invalid_request_error"
+  }
+}</pre></td>
+    </tr>
+
+    <tr>
+      <td><code>POST</code></td>
+      <td><code>/v1/embeddings</code></td>
+      <td>single string input</td>
+      <td><pre>{
+  "object": "list",
+  "data": [
+    {
+      "object": "embedding",
+      "embedding": [0.041823, -0.183614, 0.327951, -0.092481, 0.218763, 0.154902, "..."],
+      "index": 0
+    }
+  ],
+  "model": "mock-gguf",
+  "usage": {
+    "prompt_tokens": 7,
+    "total_tokens": 7
+  },
+  "latency_ms": 2.13
+}</pre></td>
+    </tr>
+
+    <tr>
+      <td><code>POST</code></td>
+      <td><code>/v1/embeddings</code></td>
+      <td>batch 3 inputs</td>
+      <td><pre>3 vectors returned  usage={"prompt_tokens": 14, "total_tokens": 14}</pre></td>
+    </tr>
+
+    <tr>
+      <td><code>POST</code></td>
+      <td><code>/v1/tokenize</code></td>
+      <td></td>
+      <td><pre>{
+  "tokens": ["The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog", "."],
+  "count": 10,
+  "latency_ms": 0.31
+}</pre></td>
+    </tr>
+
+    <tr>
+      <td><code>GET</code></td>
+      <td><code>/v1/stats</code></td>
+      <td></td>
+      <td><pre>{
+  "requests_total": 10,
+  "by_endpoint": {
+    "/health": 1,
+    "/v1/models": 1,
+    "/v1/completions": 3,
+    "/v1/chat/completions": 2,
+    "/v1/embeddings": 2,
+    "/v1/tokenize": 1
+  },
+  "errors_total": 1,
+  "avg_latency_ms": 0.872,
+  "uptime_seconds": 2.761,
+  "latency_ms": 0.19
+}</pre></td>
+    </tr>
+
+    </tbody>
+  </table>
+  <div class="footer">
+    Made with <a href="https://heyneo.so" style="color:#58a6ff;">NEO</a> — autonomous AI Agent
+  </div>
+</body>
+</html>

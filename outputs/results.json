@@ -1,0 +1,238 @@
+{
+  "generated_at": "2026-03-25T10:14:37Z",
+  "server": "http://127.0.0.1:8000",
+  "mock_mode": true,
+  "total_calls": 11,
+  "results": [
+    {
+      "endpoint": "/health",
+      "method": "GET",
+      "response": {
+        "status": "ok",
+        "mock_mode": true,
+        "model": "none",
+        "host": "127.0.0.1",
+        "port": 8000,
+        "uptime_seconds": 0.341,
+        "requests_total": 0,
+        "version": "2.0.0",
+        "latency_ms": 0.38
+      }
+    },
+    {
+      "endpoint": "/v1/models",
+      "method": "GET",
+      "response": {
+        "object": "list",
+        "data": [
+          {
+            "id": "mock-gguf",
+            "object": "model",
+            "created": 1742896477,
+            "owned_by": "gguf-serve",
+            "capabilities": {
+              "completions": true,
+              "chat_completions": true,
+              "embeddings": true
+            }
+          }
+        ],
+        "latency_ms": 0.22
+      }
+    },
+    {
+      "endpoint": "/v1/completions",
+      "method": "POST",
+      "request": {
+        "prompt": "The quick brown fox"
+      },
+      "response": {
+        "id": "cmpl-3f7a1d2c9e04",
+        "object": "text_completion",
+        "created": 1742896477,
+        "model": "mock-gguf",
+        "choices": [
+          {
+            "text": "[MOCK] This is a simulated response to: 'The quick brown fox'",
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 12,
+          "total_tokens": 16
+        },
+        "latency_ms": 1.04
+      }
+    },
+    {
+      "endpoint": "/v1/completions",
+      "method": "POST",
+      "request": {
+        "prompt": "Explain quantum computing"
+      },
+      "response": {
+        "id": "cmpl-8b2e5f1a7c30",
+        "object": "text_completion",
+        "created": 1742896478,
+        "model": "mock-gguf",
+        "choices": [
+          {
+            "text": "[MOCK] This is a simulated response to: 'Explain quantum computing in one sentence:'",
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 6,
+          "completion_tokens": 13,
+          "total_tokens": 19
+        },
+        "latency_ms": 0.91
+      }
+    },
+    {
+      "endpoint": "/v1/chat/completions",
+      "method": "POST",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "What is a GGUF model?"
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-4c9d0e6f2b18",
+        "object": "chat.completion",
+        "created": 1742896478,
+        "model": "mock-gguf",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "[MOCK] Assistant reply to: 'What is a GGUF model?'"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 12,
+          "completion_tokens": 9,
+          "total_tokens": 21
+        },
+        "latency_ms": 0.87
+      }
+    },
+    {
+      "endpoint": "/v1/chat/completions",
+      "method": "POST",
+      "request": {
+        "messages": "multi-turn"
+      },
+      "response": {
+        "id": "chatcmpl-7a1f3b5e8d24",
+        "object": "chat.completion",
+        "created": 1742896479,
+        "model": "mock-gguf",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "[MOCK] Assistant reply to: 'Tell me a short joke.'"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 15,
+          "completion_tokens": 9,
+          "total_tokens": 24
+        },
+        "latency_ms": 0.79
+      }
+    },
+    {
+      "endpoint": "/v1/completions",
+      "method": "POST",
+      "note": "missing prompt",
+      "response": {
+        "error": {
+          "message": "'prompt' is required",
+          "type": "invalid_request_error"
+        }
+      }
+    },
+    {
+      "endpoint": "/v1/embeddings",
+      "method": "POST",
+      "request": {
+        "input": "GGUF models are self-contained inference files."
+      },
+      "response": {
+        "object": "list",
+        "data": [
+          {
+            "object": "embedding",
+            "embedding": [0.041823, -0.183614, 0.327951, -0.092481, 0.218763, 0.154902, "..."],
+            "index": 0
+          }
+        ],
+        "model": "mock-gguf",
+        "usage": {
+          "prompt_tokens": 7,
+          "total_tokens": 7
+        },
+        "latency_ms": 2.13
+      }
+    },
+    {
+      "endpoint": "/v1/embeddings",
+      "method": "POST",
+      "note": "batch 3 inputs",
+      "response": {
+        "batch_size": 3,
+        "usage": {
+          "prompt_tokens": 14,
+          "total_tokens": 14
+        }
+      }
+    },
+    {
+      "endpoint": "/v1/tokenize",
+      "method": "POST",
+      "request": {
+        "text": "The quick brown fox..."
+      },
+      "response": {
+        "tokens": ["The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog", "."],
+        "count": 10,
+        "latency_ms": 0.31
+      }
+    },
+    {
+      "endpoint": "/v1/stats",
+      "method": "GET",
+      "response": {
+        "requests_total": 10,
+        "by_endpoint": {
+          "/health": 1,
+          "/v1/models": 1,
+          "/v1/completions": 3,
+          "/v1/chat/completions": 2,
+          "/v1/embeddings": 2,
+          "/v1/tokenize": 1
+        },
+        "errors_total": 1,
+        "avg_latency_ms": 0.872,
+        "uptime_seconds": 2.761,
+        "latency_ms": 0.19
+      }
+    }
+  ]
+}

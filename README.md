@@ -187,5 +187,6 @@ Smoke tests cover: health, completions, chat, embeddings, tokenization, paramete
 MIT
 
 ---
+![](https://komarev.com/ghpvc/?username=dakshjain-1616)
 
 > **Autonomously built using [NEO — your Autonomous AI Agent](https://heyneo.so)** &nbsp;|&nbsp; [Get the VS Code Extension](https://marketplace.visualstudio.com/items?itemName=NeoResearchInc.heyneo)
